@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import Login from './Login'; // Adjust the path according to your file structure
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
