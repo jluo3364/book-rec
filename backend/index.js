@@ -1,6 +1,6 @@
-const startDBServer = require('./server');
-const startPicServer = require('./picServer');
-const startAIServer = require('./gemniapi')
+const startDBServer = require("./server");
+const startPicServer = require("./picServer");
+const startAIServer = require("./gemniapi");
 
 // Start server 1 on port 3000
 startDBServer(3001);

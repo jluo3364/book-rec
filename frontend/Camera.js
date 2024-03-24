@@ -43,7 +43,7 @@ export default function App() {
       current === CameraType.back ? CameraType.front : CameraType.back
     );
   }
-
+  x;
   const takePicture = async () => {
     if (cameraRef.current) {
       let photo = await cameraRef.current.takePictureAsync();
