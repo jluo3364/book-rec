@@ -1,75 +1,115 @@
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { Camera, CameraType } from 'expo-camera';
+import { useState, useRef } from 'react'; // Import useRef
+import { Button, StyleSheet, Text, Image, TouchableOpacity, View } from 'react-native';
 
-function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+export default function App() {
+  const [type, setType] = useState(CameraType.back);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const cameraRef = useRef(null);
+  const [capturedPhotoUri, setCapturedPhotoUri] = useState(null);
 
-    const handleSignup = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                if (data === "Login success") {
-                    console.log("login success");
-                } else {
-                    setErrorMessage(data.error || 'An error occurred while signing up');
-                }
-            } else {
-                setErrorMessage('An error occurred while signing up');
-            }
-        } catch (error) {
-            console.error('Error signing up:', error);
-            setErrorMessage('An error occurred while signing up');
-        }
-    };
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
 
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
     return (
-        <View style={styles.container}>
-            <TextInput
-                placeholder="Enter your username"
-                value={username}
-                onChangeText={setUsername}
-                style={styles.input}
-            />
-            <TextInput
-                placeholder="Enter your password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                style={styles.input}
-            />
-            <Button title="Login" onPress={handleSignup} />
-            {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
-        </View>
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
     );
+  }
+
+  function toggleCameraType() {
+    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  }
+
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      let photo = await cameraRef.current.takePictureAsync();
+      setCapturedPhotoUri(photo.uri);
+
+      const formData = new FormData();
+      formData.append('photo', {
+        uri: photo.uri,
+        type: 'image/jpeg', // Adjust the type if needed
+        name: 'photo.jpg', // You can use any name here
+      });
+
+      formData.append('photo', photo.uri);
+
+
+      // Send the photo to the backend using Fetch API
+      const response = await fetch('http://localhost:8083/upload', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload photo');
+      }
+      console.log('Photo captured:', photo);
+
+    } else {
+      console.error('Camera reference is not available.');
+    }
+  };
+
+   
+
+  return (
+    <View style={styles.container}>
+      <Camera ref={cameraRef} style={styles.camera} type={type}>
+        <View style={styles.buttonContainer}>
+          <Button title="Flip Camera" onPress={toggleCameraType} style={styles.button} />
+          <Button title="Take Picture" onPress={takePicture} />
+        </View>
+      </Camera>
+      {capturedPhotoUri && (
+        <View>
+          <Text style={styles.text}>Captured photo:</Text>
+          <TouchableOpacity onPress={() => setCapturedPhotoUri(null)}>
+            <Text style={styles.text}>Close</Text>
+          </TouchableOpacity>
+          <Image source={{ uri: capturedPhotoUri }} style={{ width: 300, height: 300 }} />
+        </View>
+      )}
+    </View>
+  );
+
+  
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-    },
-    input: {
-        height: 40,
-        marginBottom: 12,
-        borderWidth: 1,
-        padding: 10,
-    },
-    error: {
-        color: 'red',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  camera: {
+    flex: 1,
+    width: '100%',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 20,
+  },
+  button: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+    color: 'black',
+    marginTop: 10,
+  },
 });
-
-export default Login;
