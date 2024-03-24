@@ -40,7 +40,7 @@ export default function Home() {
           sectionName={"Bookmarked"}
         />
       </View>
-      <BottomBar />
+      <BottomBar navigation={navigation} />
     </View>
   );
 }

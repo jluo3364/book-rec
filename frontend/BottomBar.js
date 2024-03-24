@@ -18,7 +18,7 @@ export default function BottomBar({ navigation }) {
         </Pressable>
         <Pressable
           onPress={() => {
-            /* replace with navigation */
+            navigation.navigate("Camera");
           }}
         >
           <Image

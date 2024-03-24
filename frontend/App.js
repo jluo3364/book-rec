@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { colors } from "./colors";
 import { useFonts } from "expo-font";
 import Home from "./Home";
-import BottomBar from "./BottomBar";
+import Camera from "./Camera";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
-        {/* <Stack.Screen name="Details" component={DetailScreen} /> */}
+        <Stack.Screen name="Camera" component={Camera} />
       </Stack.Navigator>
 
       <StatusBar style="auto" />
