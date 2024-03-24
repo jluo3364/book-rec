@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Platform } from "react-native";
 import { colors } from "./colors";
 import BottomBar from "./BottomBar";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const data = [
     require("./percy jackson.jpg"),
     require("./percy jackson.jpg"),
@@ -40,7 +40,7 @@ export default function Home() {
           sectionName={"Bookmarked"}
         />
       </View>
-      <BottomBar navigation={navigation} />
+      <BottomBar />
     </View>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 import {
   View,
   TextInput,
@@ -11,7 +10,8 @@ import {
 } from "react-native";
 import { colors } from "./colors";
 
-function Login({ navigation }) {
+function Login() {
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");

@@ -1,6 +1,9 @@
 import { Pressable, View, StyleSheet, Image } from "react-native";
 
-export default function BottomBar({ navigation }) {
+import { useNavigation } from "@react-navigation/native";
+
+export default function BottomBar() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.bottomBar}>
