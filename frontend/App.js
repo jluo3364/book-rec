@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.appName}>Bookup</Text>
+      <Text style={styles.appName}>Bookup </Text>
       <Home />
       <BottomBar />
       {/* <Login /> */}
@@ -27,9 +27,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.dustyred,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "center", //horizontal center
+    // justifyContent: "center",
     gap: 10,
+    paddingTop: 40,
   },
   appName: {
     fontFamily: "DMSerifDisplay",

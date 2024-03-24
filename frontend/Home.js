@@ -29,7 +29,7 @@ export default function Home() {
       <BookRow
         data={data}
         selectedBook={"./percy jackson.jpg"}
-        sectionName={"Recommendedations"}
+        sectionName={"Recommendations"}
       />
       <BookRow
         data={data}
@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
   cardsContainer: {
     backgroundColor: colors.caramel,
     alignItems: "center", //horizontal center
-    justifyContent: "center", //vertical center
-    gap: 20,
-    height: "70%",
+    justifyContent: "space-between", //vertical center
+    paddingVertical: 20,
+    height: "75%",
     borderRadius: 22,
     padding: 10,
   },
