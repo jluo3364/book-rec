@@ -13,6 +13,34 @@ import {
 import { colors } from "./colors";
 import { useNavigation } from "@react-navigation/native";
 
+const sendImg = async (photo) => {
+  try {
+    // Send the photo to the backend using fetch
+    const response = await fetch("http://localhost:8081/get0img", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to upload photo");
+    }
+
+    // Handle the response from the backend if needed
+    // For example, if the backend returns some data:
+    const responseData = await response.json();
+    console.log("Response from backend:", responseData);
+
+    // Now you can set the captured photo URI and response data
+    setCapturedPhotoUri(photo.uri);
+    setResponseData(responseData);
+  } catch (error) {
+    console.error("Error uploading photo:", error);
+  }
+};
+
 export default function App() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -43,6 +71,12 @@ export default function App() {
       current === CameraType.back ? CameraType.front : CameraType.back
     );
   }
+  const formData = new FormData();
+  formData.append("photo", {
+    uri: photo.uri,
+    type: "image/jpeg",
+    name: "photo.jpg",
+  });
 
   const takePicture = async () => {
     if (cameraRef.current) {
@@ -105,7 +139,7 @@ export default function App() {
         </View>
       </Camera>
       {capturedPhotoUri && (
-        <View>
+        <View style={{ marginVertical: 10 }}>
           <Text style={styles.normalText}>captured photo:</Text>
           <Pressable
             onPress={() =>
@@ -143,7 +177,7 @@ const styles = StyleSheet.create({
   closebutton: {
     backgroundColor: colors.tan,
     borderRadius: 12,
-    verticalMargin: 10,
+    marginVertical: 10,
     justifyContent: "center",
     alignItems: "center",
   },
