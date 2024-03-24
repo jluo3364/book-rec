@@ -4,4 +4,5 @@ export const colors = {
   tan: "#ECE2D0",
   caramel: "#C5A378",
   white: "#FFFFFF",
+  warning: "#ea770e",
 };

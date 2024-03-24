@@ -3,10 +3,10 @@ import { Text, View, StyleSheet, Platform } from "react-native";
 import { colors } from "./colors";
 import BottomBar from "./BottomBar";
 
-export default function Home({ navigation }) {
+export default function Home() {
   const data = [
-    require("./percy jackson.jpg"),
-    require("./imgs/book.png"),
+    require("./imgs/hp cover.jpg"),
+    require("./imgs/percy jackson.jpg"),
     require("./imgs/book.png"),
     require("./imgs/book.png"),
     require("./imgs/book.png"),
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.caramel,
     alignItems: "center", //horizontal center
     justifyContent: "space-between", //vertical center
-    paddingVertical: 20,
-    height: "85%",
+    paddingVertical: 10,
+    height: "90%",
     borderRadius: 22,
     padding: 10,
     gap: 20,
@@ -73,6 +73,6 @@ const styles = StyleSheet.create({
     alignItems: "center", //horizontal center
     // justifyContent: "center",
     gap: 10,
-    paddingTop: 40,
+    paddingTop: 10,
   },
 });

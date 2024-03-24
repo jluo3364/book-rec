@@ -46,6 +46,16 @@ function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.contentFrame}>
+        <Image
+          source={require("./imgs/icon.png")}
+          style={{
+            width: 130,
+            height: 130,
+            borderRadius: 30,
+          }}
+          resizeMode="contain"
+        />
+        <Text style={styles.appName}>BookUp</Text>
         <TextInput
           placeholder="Enter your username"
           value={username}
@@ -81,14 +91,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-
+    width: 300,
+    placeholderTextColor: colors.dustyred,
+    fontFamily: "DMSerifDisplay",
     marginBottom: 12,
     padding: 10,
-    borderRadius: 12,
+    borderRadius: 10,
     backgroundColor: colors.tan,
   },
   error: {
-    color: "red",
+    color: colors.warning,
+    fontFamily: "DMSerifDisplay",
   },
   button: {
     borderRadius: 12, // Border radius
@@ -98,6 +111,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
+  },
+  appName: {
+    fontFamily: "DMSerifDisplay",
+    fontSize: 36,
+    color: colors.white,
+    marginBottom: 20,
   },
 });
 

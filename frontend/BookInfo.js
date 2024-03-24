@@ -1,69 +1,105 @@
-import React from "react";
-import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { Text, Image, Pressable, StyleSheet, View } from "react-native"; // Added View for container
+import { colors } from "./colors"; // Assuming colors are defined in a separate file
+import { useFonts } from "expo-font";
+import { ScrollView } from "react-native-gesture-handler";
+import Button from "./Button";
 
-import { useNavigation } from "@react-navigation/native";
+export default function BookInfo({ img, info, prompts }) {
+  const [fontsLoaded] = useFonts({
+    DMSerifDisplay: require("./DMSerifDisplay-Regular.ttf"),
+  });
+  const [bookmarked, setBookmarked] = useState(false);
 
-const BookInfo = () => {
-  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <View styl e={styles.box} />
-
-      <View style={styles.imageContainer}>
-        <Image source={require("./percy jackson.jpg")} style={styles.image} />
-      </View>
+    <View>
+      {img != null && (
+        <View style={styles.book_bookmark}>
+          <Image source={img} style={styles.image} resizeMode="center" />
+          <Pressable onPress={() => setBookmarked(!bookmarked)}>
+            <Image
+              source={
+                bookmarked
+                  ? require("./imgs/selected_bookmark.png")
+                  : require("./imgs/unselected_bookmark.png")
+              }
+              style={styles.bookmark}
+              resizeMode="contain"
+            />
+          </Pressable>
+        </View>
+      )}
+      <Text style={styles.text}>{info}</Text>
+      {prompts && prompts.length > 0 && (
+        <View style={styles.buttons}>
+          {prompts.map((prompt, index) => (
+            <Button key={index} text={prompt} onPress={() => {}} />
+          ))}
+        </View>
+      )}
     </View>
   );
-};
-
-const { width, height } = Dimensions.get("window");
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#654348",
+  book_bookmark: {
+    justifyContent: "flex-start",
+    alignItems: "center", // Center vertically
+    flexDirection: "row",
   },
-  box: {
-    width: width * 0.9, // Adjust this percentage to change the box width
-    height: height * 0.9, // Maintain aspect ratio by setting height based on width
-    borderRadius: (width * 0.8) / 10, // Adjust the rounding based on box width
-    backgroundColor: "#ECE2D0",
-  },
-  imageContainer: {
-    position: "absolute",
-    bottom: height * 0.05, // Adjust this percentage to change the distance from the bottom
-    //alignItems: 'center',
-    top: 0, // Adjust this value to position the box from the top
-    left: height * 0.05,
+  bookmark: {
+    height: 50,
   },
   image: {
-    width: width * 0.4, // Adjust this percentage to change the image width
-    height: height * 0.7, // Maintain aspect ratio by setting height based on width
-    resizeMode: "contain", // Adjust this property as needed
+    width: 130,
+    height: 190,
+    borderRadius: 20,
   },
+
   similarBooks: {
-    width: width * 0.9, // Adjust this percentage to change the box width
-    height: height * 0.2, // Maintain aspect ratio by setting height based on width
-    borderRadius: 0.2, // Adjust the rounding based on box width
-    backgroundColor: "light-blue",
+    width: "90%",
+    height: "20%",
+    borderRadius: 0.2,
+    backgroundColor: "lightblue",
     top: 10,
     left: 10,
   },
   sameAuthor: {
-    width: width * 0.9, // Adjust this percentage to change the box width
-    height: height * 0.9, // Maintain aspect ratio by setting height based on width
-    borderRadius: (width * 0.8) / 10, // Adjust the rounding based on box width
+    width: "90%",
+    height: "90%",
+    borderRadius: 10,
     backgroundColor: "black",
   },
   text: {
-    color: "red",
-    fontSize: 20,
-    fontWeight: "bold",
+    color: colors.white,
+    fontSize: 14,
+    fontFamily: "DMSerifDisplay",
+    flex: 1,
+    flexShrink: 1,
+    flexWrap: "wrap",
+    marginVertical: 10,
   },
-  container1: {},
-  container2: {},
+  buttonText: {
+    color: colors.dustyred,
+    fontSize: 14,
+    fontFamily: "DMSerifDisplay",
+  },
+  contentContainer: {
+    alignSelf: "center",
+    paddingTop: 10,
+    width: "95%",
+    height: "95%",
+  },
+  button: {
+    backgroundColor: colors.tan,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: 30,
+  },
+  buttons: {
+    flexDirection: "row",
+    gap: 10,
+    flexWrap: "wrap",
+  },
 });
-
-export default BookInfo;

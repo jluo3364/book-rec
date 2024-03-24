@@ -1,12 +1,26 @@
 import { Pressable, View, StyleSheet, Image } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 export default function BottomBar() {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <View style={styles.bottomBar}>
+    <View
+      style={[
+        Platform.OS === "web" ? styles.webContainer : styles.mobileContainer,
+      ]}
+    >
+      <View
+        style={[
+          {
+            justifyContent:
+              Platform.OS === "web" ? "space-between" : "space-around",
+          },
+          ,
+          styles.bottomBar,
+        ]}
+      >
         <Pressable
           style={styles.iconFrame}
           onPress={() => {
@@ -47,22 +61,24 @@ export default function BottomBar() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center", // Adjust alignment as needed
+  webContainer: {
     justifyContent: "flex-end", // Adjust alignment as needed
-    paddingHorizontal: 30,
-    marginStart: 30,
     flex: 0.8,
+    width: "60%",
+  },
+  mobileContainer: {
+    // alignItems: "center", // Adjust alignment as needed
+    justifyContent: "flex-end", // Adjust alignment as needed
+    flex: 0.8,
+    width: "80%",
   },
   bottomBar: {
     // alignItems: "flex-start",
     justifyContent: "space-around",
+    alignItems: "center",
     flexDirection: "row",
   },
   icon: {
     height: 50,
-  },
-  iconFrame: {
-    borderRadius: 15,
   },
 });
