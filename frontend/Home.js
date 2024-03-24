@@ -6,10 +6,17 @@ import BottomBar from "./BottomBar";
 export default function Home({ navigation }) {
   const data = [
     require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+  ];
+  const placeholder = [
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
+    require("./imgs/book.png"),
   ];
   return (
     //set width depending on platform web vs mobile
@@ -30,12 +37,12 @@ export default function Home({ navigation }) {
           sectionName={"Recent Books"}
         />
         <BookRow
-          data={data}
+          data={placeholder}
           selectedBook={"./percy jackson.jpg"}
           sectionName={"Recommendations"}
         />
         <BookRow
-          data={data}
+          data={placeholder}
           selectedBook={"./percy jackson.jpg"}
           sectionName={"Bookmarked"}
         />

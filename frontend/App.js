@@ -6,6 +6,7 @@ import { colors } from "./colors";
 import { useFonts } from "expo-font";
 import Home from "./Home";
 import Camera from "./Camera";
+import BookInfo from "./BookInfo";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -17,10 +18,11 @@ export default function App() {
 
   return (
     <NavigationContainer style={styles.container}>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Camera" component={Camera} />
+        <Stack.Screen name="BookInfo" component={BookInfo} />
       </Stack.Navigator>
 
       <StatusBar style="auto" />
