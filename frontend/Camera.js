@@ -43,7 +43,7 @@ export default function App() {
       current === CameraType.back ? CameraType.front : CameraType.back
     );
   }
-  x;
+
   const takePicture = async () => {
     if (cameraRef.current) {
       let photo = await cameraRef.current.takePictureAsync();
@@ -74,7 +74,7 @@ export default function App() {
 
       // Get the response from the backend
       const getDataResponse = await fetch(
-        "http://localhost:8081/generate-content"
+        "http://localhost:6000/generate-content"
       );
       if (!getDataResponse.ok) {
         throw new Error("Failed to get data from gemini api");

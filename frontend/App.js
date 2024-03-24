@@ -21,7 +21,7 @@ export default function App() {
     "The book is 'Harry Potter and the Sorcerer's Stone' by J.K. Rowling.\nIt is the first book in the Harry Potter series and tells the story of Harry Potter, an orphaned boy who discovers on his 11th birthday that he is a wizard and has been accepted to Hogwarts School of Witchcraft and Wizardry. Harry meets his best friends, Ron Weasley and Hermione Granger, and together they face many challenges, including learning magic, making new friends, and battling the evil Lord Voldemort.";
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ResponsePage">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={Login}
