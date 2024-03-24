@@ -1,25 +1,22 @@
 import React from "react";
-// import Login from "./Login"; // Adjust the path according to your file structure
+import Login from "./Login"; // Adjust the path according to your file structure
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { colors } from "./colors";
-import { Platform } from "react-native";
-
-import BookRow from "./BookRow";
+import { useFonts } from "expo-font";
+import Home from "./Home";
+import BottomBar from "./BottomBar";
 
 export default function App() {
-  const data = [
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-    require("./percy jackson.jpg"),
-  ];
+  const [fontsLoaded] = useFonts({
+    DMSerifDisplay: require("./DMSerifDisplay-Regular.ttf"),
+  });
+
   return (
     <View style={styles.container}>
-      <Text>Bookup</Text>
-      <BookRow data={data} selectedBook={"./percy jackson.jpg"} />
-
+      <Text style={styles.appName}>Bookup</Text>
+      <Home />
+      <BottomBar />
       {/* <Login /> */}
       <StatusBar style="auto" />
     </View>
@@ -32,5 +29,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dustyred,
     alignItems: "center",
     justifyContent: "center",
+    gap: 10,
+  },
+  appName: {
+    fontFamily: "DMSerifDisplay",
+    fontSize: 36,
+    color: colors.white,
   },
 });

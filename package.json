@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@google/generative-ai": "^0.3.1"
+    "@google/generative-ai": "^0.3.1",
+    "expo": "^50.0.14",
+    "expo-splash-screen": "^0.26.4"
   }
 }

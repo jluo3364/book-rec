@@ -1,7 +1,7 @@
 import {
   View,
   StyleSheet,
-  FlatList,
+  Platform,
   Pressable,
   Text,
   Image,
@@ -9,8 +9,13 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { colors } from "./colors.js";
+import { useFonts } from "expo-font";
 
-export default function BookRow({ data, selectedBook }) {
+export default function BookRow({ data, selectedBook, sectionName }) {
+  const [fontsLoaded] = useFonts({
+    DMSerifDisplay: require("./DMSerifDisplay-Regular.ttf"),
+  });
+
   const Book = ({ book, onPress }) => {
     const outline = book === selectedItem ? styles.buttonOutline : {};
     return (
@@ -30,7 +35,9 @@ export default function BookRow({ data, selectedBook }) {
   };
 
   return (
-    <View style={styles.rowContainer}>
+    <View style={[styles.rowContainer, { width: "95%" }]}>
+      <Text style={styles.sectionName}>{sectionName}</Text>
+      {/* <View style={styles.scrollViewFrame}> */}
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={true}
@@ -38,6 +45,7 @@ export default function BookRow({ data, selectedBook }) {
       >
         {renderBooks()}
       </ScrollView>
+      {/* </View> */}
     </View>
   );
 }
@@ -45,19 +53,16 @@ export default function BookRow({ data, selectedBook }) {
 const styles = StyleSheet.create({
   rowContainer: {
     backgroundColor: colors.tan,
-    height: 163,
-    width: 290,
+    height: 170,
     borderRadius: 15,
+    gap: 7,
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
   listContainer: {
-    height: 119,
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  locationBar: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    gap: 7,
   },
   pressed: {},
   buttonOutline: {
@@ -69,6 +74,16 @@ const styles = StyleSheet.create({
     width: 76,
     height: 119,
     borderRadius: 14,
-    marginHorizontal: 5,
+  },
+  sectionName: {
+    fontFamily: "DMSerifDisplay",
+    fontSize: 18,
+    color: colors.dustyred,
+  },
+  scrollViewFrame: {
+    height: 119,
+    width: 310,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
