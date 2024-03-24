@@ -61,7 +61,8 @@ app.post("/login", async (req, res) => {
 // });
 
 // app.listen(port, () => console.log(`Server running on port ${port}`));
-
-app.listen(port, () =>
-  console.log(`Running the app. We are listening on port ${port}!`)
-);
+module.exports = function startServer(port) {
+  app.listen(port, () => {
+    console.log(`Server 1 is listening on port ${port}`);
+  });
+};

@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 8086;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,4 +15,8 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+module.exports = function startPicServer(port) {
+  app.listen(port, () => {
+    console.log(`pic server is listening on port ${port}`);
+  });
+};
