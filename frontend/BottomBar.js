@@ -1,13 +1,13 @@
 import { Pressable, View, StyleSheet, Image } from "react-native";
 
-export default function BottomBar() {
+export default function BottomBar({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.bottomBar}>
         <Pressable
           style={styles.iconFrame}
           onPress={() => {
-            /* replace with navigation */
+            navigation.navigate("Home");
           }}
         >
           <Image
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   icon: {
-    height: 60,
+    height: 50,
   },
   iconFrame: {
     borderRadius: 15,

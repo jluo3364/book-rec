@@ -6,20 +6,25 @@ import { colors } from "./colors";
 import { useFonts } from "expo-font";
 import Home from "./Home";
 import BottomBar from "./BottomBar";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
+const Stack = createStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     DMSerifDisplay: require("./DMSerifDisplay-Regular.ttf"),
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.appName}>Bookup </Text>
-      <Home />
-      <BottomBar />
-      {/* <Login /> */}
+    <NavigationContainer style={styles.container}>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="Details" component={DetailScreen} /> */}
+      </Stack.Navigator>
+
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
@@ -31,10 +36,5 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     gap: 10,
     paddingTop: 40,
-  },
-  appName: {
-    fontFamily: "DMSerifDisplay",
-    fontSize: 36,
-    color: colors.white,
   },
 });
